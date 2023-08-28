@@ -1,10 +1,10 @@
 package db
 
 import (
-	"awesomeProject/ent"
 	"entgo.io/ent/dialect"
 	"errors"
 	"log"
+	"testTaskAvito/ent"
 
 	"context"
 	"database/sql"
@@ -14,6 +14,8 @@ import (
 
 var NonUniqueFiledErr = errors.New("non-unique filed error")
 var NotFoundErr = errors.New("not found error error")
+
+var ctx = context.Background()
 
 // Open new connection
 func Open(databaseUrl string) *ent.Client {
@@ -40,11 +42,11 @@ func DbInit() {
 	defer Close(client)
 
 	// Run the auto migration tool.
-	if err := client.Schema.Create(context.Background()); err != nil {
+	if err := client.Schema.Create(ctx); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
 
-	err := client.Schema.Create(context.Background())
+	err := client.Schema.Create(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -3,7 +3,7 @@
 package segment
 
 import (
-	"awesomeProject/ent/predicate"
+	"testTaskAvito/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

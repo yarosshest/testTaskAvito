@@ -3,9 +3,9 @@
 package hook
 
 import (
-	"awesomeProject/ent"
 	"context"
 	"fmt"
+	"testTaskAvito/ent"
 )
 
 // The SegmentFunc type is an adapter to allow the use of ordinary

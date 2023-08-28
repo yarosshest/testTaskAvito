@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"log"
 
-	"awesomeProject/ent/migrate"
+	"testTaskAvito/ent/migrate"
 
-	"awesomeProject/ent/segment"
-	"awesomeProject/ent/user"
+	"testTaskAvito/ent/segment"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"

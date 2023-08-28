@@ -1,13 +1,12 @@
 package db
 
 import (
-	"awesomeProject/ent"
-	"awesomeProject/ent/segment"
-	"context"
 	"errors"
 	"fmt"
 	"github.com/jackc/pgx/v5/pgconn"
 	"log"
+	"testTaskAvito/ent"
+	"testTaskAvito/ent/segment"
 )
 
 type Segment struct {
@@ -18,7 +17,7 @@ func CreateSegment(client *ent.Client, segment Segment) (*ent.Segment, error) {
 	s, err := client.Segment.
 		Create().
 		SetName(segment.Name).
-		Save(context.Background())
+		Save(ctx)
 
 	if err != nil {
 		var pgErr *pgconn.PgError
@@ -35,7 +34,7 @@ func CreateSegment(client *ent.Client, segment Segment) (*ent.Segment, error) {
 }
 
 func DeleteSegment(client *ent.Client, s Segment) error {
-	_, err := client.Segment.Delete().Where(segment.Name(s.Name)).Exec(context.Background())
+	_, err := client.Segment.Delete().Where(segment.Name(s.Name)).Exec(ctx)
 	switch {
 	// If the entity does not meet a specific condition,
 	// the operation will return an "ent.NotFoundError".

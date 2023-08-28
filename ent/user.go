@@ -3,9 +3,9 @@
 package ent
 
 import (
-	"awesomeProject/ent/user"
 	"fmt"
 	"strings"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"

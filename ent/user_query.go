@@ -3,13 +3,13 @@
 package ent
 
 import (
-	"awesomeProject/ent/predicate"
-	"awesomeProject/ent/segment"
-	"awesomeProject/ent/user"
 	"context"
 	"database/sql/driver"
 	"fmt"
 	"math"
+	"testTaskAvito/ent/predicate"
+	"testTaskAvito/ent/segment"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

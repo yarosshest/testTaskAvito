@@ -1,0 +1,33 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a test task avito server.
+  title: test task avito API
+  version: "1.0"
+paths:
+  /Segment:
+    post:
+      consumes:
+      - application/json
+      description: Add segment
+      operationId: add-segment
+      parameters:
+      - description: segment name
+        in: query
+        name: segment
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+        "400":
+          description: bad request
+        "409":
+          description: segment with this name alredy exist
+        "500":
+          description: internal server error
+      summary: Add segment
+swagger: "2.0"

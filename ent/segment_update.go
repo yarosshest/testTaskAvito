@@ -3,12 +3,12 @@
 package ent
 
 import (
-	"awesomeProject/ent/predicate"
-	"awesomeProject/ent/segment"
-	"awesomeProject/ent/user"
 	"context"
 	"errors"
 	"fmt"
+	"testTaskAvito/ent/predicate"
+	"testTaskAvito/ent/segment"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

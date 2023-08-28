@@ -3,11 +3,11 @@
 package ent
 
 import (
-	"awesomeProject/ent/segment"
-	"awesomeProject/ent/user"
 	"context"
 	"errors"
 	"fmt"
+	"testTaskAvito/ent/segment"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"

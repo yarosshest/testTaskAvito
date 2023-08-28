@@ -3,13 +3,13 @@
 package ent
 
 import (
-	"awesomeProject/ent/predicate"
-	"awesomeProject/ent/segment"
-	"awesomeProject/ent/user"
 	"context"
 	"errors"
 	"fmt"
 	"sync"
+	"testTaskAvito/ent/predicate"
+	"testTaskAvito/ent/segment"
+	"testTaskAvito/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -530,6 +530,12 @@ func (m UserMutation) Tx() (*Tx, error) {
 	tx := &Tx{config: m.config}
 	tx.init()
 	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of User entities.
+func (m *UserMutation) SetID(id int) {
+	m.id = &id
 }
 
 // ID returns the ID value in the mutation. Note that the ID is only available
