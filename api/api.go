@@ -19,21 +19,21 @@ var con = db.Open("postgresql://postgres:postgres@localhost/testTaskAvito")
 // @ID add-segment
 // @Accept  json
 // @Produce  json
-// @Param segment query string true "segment name"
+// @Param name query string true "segment name"
 // @Success 201 "ok"
 // @Failure 400 "bad request"
 // @Failure 409 "segment with this name alredy exist"
 // @Failure 500 "internal server error"
 // @Router /Segment [post]
 func addSegment(c *gin.Context) {
-	var postSegment db.Segment
-	if err := c.BindJSON(&postSegment); err != nil {
-		segmentMarshalled, _ := json.Marshal(db.Segment{Name: "test"})
-		c.NegotiateFormat(string(segmentMarshalled))
+	name := c.Query("name")
+
+	if name == "" {
+		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	_, err := db.CreateSegment(con, postSegment)
+	_, err := db.CreateSegment(con, name)
 	if err != nil {
 		if errors.Is(err, db.NonUniqueFiledErr) {
 			c.Writer.WriteHeader(http.StatusConflict)
@@ -47,15 +47,26 @@ func addSegment(c *gin.Context) {
 	return
 }
 
+// @Summary Delete segment
+// @Description Delete segment
+// @ID del-segment
+// @Accept  json
+// @Produce  json
+// @Param name query string true "segment name"
+// @Success 202 "ok"
+// @Failure 400 "bad request"
+// @Failure 404 "segment with this name not found"
+// @Failure 500 "internal server error"
+// @Router /Segment [delete]
 func delSegment(c *gin.Context) {
-	var postSegment db.Segment
-	if err := c.BindJSON(&postSegment); err != nil {
-		segmentMarshalled, _ := json.Marshal(db.Segment{Name: "test"})
-		c.NegotiateFormat(string(segmentMarshalled))
+	name := c.Query("name")
+
+	if name == "" {
+		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	err := db.DeleteSegment(con, postSegment)
+	err := db.DeleteSegment(con, name)
 	if err != nil {
 		if errors.Is(err, db.NotFoundErr) {
 			c.Writer.WriteHeader(http.StatusNotFound)
@@ -69,6 +80,18 @@ func delSegment(c *gin.Context) {
 	return
 }
 
+// @Summary Update user
+// @Description Update user
+// @ID put-user
+// @Accept  json
+// @Produce  json
+// @Param id query int true "user id"
+// @Param add body db.QueueUpdateUser true "Segments to add and del"
+// @Success 202 "ok"
+// @Failure 400 "bad request"
+// @Failure 404 "user with this id not found"
+// @Failure 500 "internal server error"
+// @Router /User [put]
 func putUser(c *gin.Context) {
 	p := c.Query("id")
 	id, err := strconv.Atoi(p)
@@ -100,6 +123,17 @@ func putUser(c *gin.Context) {
 	return
 }
 
+// @Summary Get user
+// @Description Get user
+// @ID get-user
+// @Accept  json
+// @Produce  json
+// @Param id query int true "user id"
+// @Success 200 {array} string "segments"
+// @Failure 400 "bad request"
+// @Failure 404 "user with this id not found"
+// @Failure 500 "internal server error"
+// @Router /User [get]
 func getUser(c *gin.Context) {
 
 	p := c.Query("id")
@@ -127,7 +161,7 @@ func getUser(c *gin.Context) {
 func RunApi() {
 	router := gin.Default()
 
-	docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.BasePath = "/"
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	router.POST("/Segment", addSegment)

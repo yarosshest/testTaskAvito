@@ -24,7 +24,7 @@
                     {
                         "type": "string",
                         "description": "segment name",
-                        "name": "segment",
+                        "name": "name",
                         "in": "query",
                         "required": true
                     }
@@ -41,6 +41,144 @@
                     },
                     "500": {
                         "description": "internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete segment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete segment",
+                "operationId": "del-segment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "segment name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "404": {
+                        "description": "segment with this name not found"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        },
+        "/User": {
+            "get": {
+                "description": "Get user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get user",
+                "operationId": "get-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "segments",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "404": {
+                        "description": "user with this id not found"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update user",
+                "operationId": "put-user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "user id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Segments to add and del",
+                        "name": "add",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/db.QueueUpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "ok"
+                    },
+                    "400": {
+                        "description": "bad request"
+                    },
+                    "404": {
+                        "description": "user with this id not found"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "db.QueueUpdateUser": {
+            "type": "object",
+            "properties": {
+                "add": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "dell": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }

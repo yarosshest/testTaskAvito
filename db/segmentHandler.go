@@ -9,14 +9,10 @@ import (
 	"testTaskAvito/ent/segment"
 )
 
-type Segment struct {
-	Name string `json:"name"`
-}
-
-func CreateSegment(client *ent.Client, segment Segment) (*ent.Segment, error) {
+func CreateSegment(client *ent.Client, name string) (*ent.Segment, error) {
 	s, err := client.Segment.
 		Create().
-		SetName(segment.Name).
+		SetName(name).
 		Save(ctx)
 
 	if err != nil {
@@ -33,8 +29,8 @@ func CreateSegment(client *ent.Client, segment Segment) (*ent.Segment, error) {
 
 }
 
-func DeleteSegment(client *ent.Client, s Segment) error {
-	_, err := client.Segment.Delete().Where(segment.Name(s.Name)).Exec(ctx)
+func DeleteSegment(client *ent.Client, name string) error {
+	_, err := client.Segment.Delete().Where(segment.Name(name)).Exec(ctx)
 	switch {
 	// If the entity does not meet a specific condition,
 	// the operation will return an "ent.NotFoundError".

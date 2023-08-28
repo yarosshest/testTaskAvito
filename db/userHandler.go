@@ -44,7 +44,7 @@ func addSegmentToUser(client *ent.Client, u *ent.User, s string) (*ent.User, err
 	).Only(ctx)
 
 	if ent.IsNotFound(err) {
-		seg, err = CreateSegment(client, Segment{Name: s})
+		seg, err = CreateSegment(client, s)
 	}
 
 	if err != nil {
