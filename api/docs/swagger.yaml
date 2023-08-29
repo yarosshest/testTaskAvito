@@ -1,0 +1,125 @@
+basePath: /
+definitions:
+  db.QueueUpdateUser:
+    properties:
+      add:
+        items:
+          type: string
+        type: array
+      dell:
+        items:
+          type: string
+        type: array
+    type: object
+host: localhost:60122
+info:
+  contact: {}
+  description: This is a test task avito server.
+  title: test task avito API
+  version: "1.0"
+paths:
+  /Segment:
+    delete:
+      consumes:
+      - application/json
+      description: Delete segment
+      operationId: del-segment
+      parameters:
+      - description: segment name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: ok
+        "400":
+          description: bad request
+        "404":
+          description: segment with this name not found
+        "500":
+          description: internal server error
+      summary: Delete segment
+    post:
+      consumes:
+      - application/json
+      description: Add segment
+      operationId: add-segment
+      parameters:
+      - description: segment name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: ok
+        "400":
+          description: bad request
+        "409":
+          description: segment with this name alredy exist
+        "500":
+          description: internal server error
+      summary: Add segment
+  /User:
+    get:
+      consumes:
+      - application/json
+      description: Get user
+      operationId: get-user
+      parameters:
+      - description: user id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: segments
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: bad request
+        "404":
+          description: user with this id not found
+        "500":
+          description: internal server error
+      summary: Get user
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      operationId: put-user
+      parameters:
+      - description: user id
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: Segments to add and del
+        in: body
+        name: add
+        required: true
+        schema:
+          $ref: '#/definitions/db.QueueUpdateUser'
+      produces:
+      - application/json
+      responses:
+        "202":
+          description: ok
+        "400":
+          description: bad request
+        "404":
+          description: user with this id not found
+        "500":
+          description: internal server error
+      summary: Update user
+swagger: "2.0"

@@ -1,0 +1,20 @@
+services:
+  api:
+    image: golang:latest
+    build:
+      context: './api'
+      dockerfile: "./apiDockerfile"
+    ports:
+      - "60122:8080"
+    restart: always
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "testTaskAvito"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    build:
+      context: '.'
+      dockerfile: "./dbDockerfile"
+    ports:
+      - "60121:5432"
