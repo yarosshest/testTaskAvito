@@ -12,4 +12,5 @@ swagger располагается по адресу http://localhost:60122/swag
 ```bash
 docker exec -it testtaskavito-postgres-1 pg_dump -U postgres --column-inserts --data-only testTaskAvito > backup_data.sql
 ```
+В результате чего будет получен конченый SQL фалл backup_data.sql
 
